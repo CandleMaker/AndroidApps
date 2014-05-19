@@ -1,15 +1,16 @@
 package com.mj.framework.implementation;
 
 import android.app.Activity;
-import android.content.Context;
+//import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.os.Bundle;
-import android.os.PowerManager;
+//import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.view.Window;
 import android.view.WindowManager;
+import android.util.DisplayMetrics;
 
 import com.mj.framework.Audio;
 import com.mj.framework.FileIO;
@@ -32,8 +33,14 @@ public abstract class AndroidGame extends Activity implements Game {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
+        getWindow().setFlags(
+        		WindowManager.LayoutParams.FLAG_FULLSCREEN
+        		| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+        		WindowManager.LayoutParams.FLAG_FULLSCREEN
+        		| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+               
 
         boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
         int frameBufferWidth = isPortrait ? 800: 1280;
@@ -41,10 +48,11 @@ public abstract class AndroidGame extends Activity implements Game {
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
                 frameBufferHeight, Config.RGB_565);
         
-        float scaleX = (float) frameBufferWidth
-                / getWindowManager().getDefaultDisplay().getWidth();
-        float scaleY = (float) frameBufferHeight
-                / getWindowManager().getDefaultDisplay().getHeight();
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        float scaleX = (float) frameBufferWidth / metrics.widthPixels;
+        float scaleY = (float) frameBufferHeight / metrics.heightPixels;
 
         renderView = new AndroidFastRenderView(this, frameBuffer);
         graphics = new AndroidGraphics(getAssets(), frameBuffer);
@@ -54,8 +62,8 @@ public abstract class AndroidGame extends Activity implements Game {
         screen = getInitScreen();
         setContentView(renderView);
         
-        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "MyGame");
+        //PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        //wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "MyGame");
     }
 
     @Override

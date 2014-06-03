@@ -20,6 +20,10 @@ import com.mj.framework.Input;
 import com.mj.framework.Screen;
 
 public abstract class AndroidGame extends Activity implements Game {
+//an activity is usually an interactive window. For a typical application,
+//you might have multiple activities (usually one for each screen).
+//For example, you might have an activity for the login screen,
+//another activity for the settings page, and so on.
     AndroidFastRenderView renderView;
     Graphics graphics;
     Audio audio;
@@ -30,6 +34,10 @@ public abstract class AndroidGame extends Activity implements Game {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    //Bundles- lets you pass information between multiple activities.
+    //Going back to the example of a login screen, a Bundle might
+    //transmit your login information to another activity
+    //that checks it to grant access
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);

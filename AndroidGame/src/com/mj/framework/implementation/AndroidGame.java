@@ -24,13 +24,13 @@ public abstract class AndroidGame extends Activity implements Game {
 //you might have multiple activities (usually one for each screen).
 //For example, you might have an activity for the login screen,
 //another activity for the settings page, and so on.
-    AndroidFastRenderView renderView;
-    Graphics graphics;
-    Audio audio;
-    Input input;
-    FileIO fileIO;
-    Screen screen;
-    WakeLock wakeLock;
+    AndroidFastRenderView renderView; //usermade class
+    Graphics graphics; //usermade class
+    Audio audio; //usermade class
+    Input input; //usermade class
+    FileIO fileIO; //usermade class
+    Screen screen; //usermade class
+    WakeLock wakeLock; //import android.os.PowerManager.WakeLock;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,20 +39,29 @@ public abstract class AndroidGame extends Activity implements Game {
     //transmit your login information to another activity
     //that checks it to grant access
         super.onCreate(savedInstanceState);
+        //we first call the "super" method -->that is the default onCreate method in the activity class
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //removes the title of our application
+        
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*///deprecated
         getWindow().setFlags(
         		WindowManager.LayoutParams.FLAG_FULLSCREEN
         		| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
         		WindowManager.LayoutParams.FLAG_FULLSCREEN
         		| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        //alternative to deprecated code
+        //sets application to fullscreen
                
 
         boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        //code for checking the orientation
+        
         int frameBufferWidth = isPortrait ? 800: 1280;
+        //sets value according to orientation
         int frameBufferHeight = isPortrait ? 1280: 800;
+      //sets value according to orientation
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
                 frameBufferHeight, Config.RGB_565);
         

@@ -40,6 +40,7 @@ public abstract class AndroidGame extends Activity implements Game {
     //that checks it to grant access
         super.onCreate(savedInstanceState);
         //we first call the "super" method -->that is the default onCreate method in the activity class
+        //method belongs to the superclass?
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //removes the title of our application
@@ -61,23 +62,39 @@ public abstract class AndroidGame extends Activity implements Game {
         int frameBufferWidth = isPortrait ? 800: 1280;
         //sets value according to orientation
         int frameBufferHeight = isPortrait ? 1280: 800;
-      //sets value according to orientation
+        //sets value according to orientation
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
                 frameBufferHeight, Config.RGB_565);
+        //import android.graphics.Bitmap;
+        //Returns a mutable bitmap with the specified width and height
         
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        //A structure describing general information about a display, such as its size, density, and font scaling
+        //This is the code needed to access the displaymetrics members (initialize an object like this)
+        //members sample-->metrics.widthPixels, metrics.heightPixels
 
         float scaleX = (float) frameBufferWidth / metrics.widthPixels;
         float scaleY = (float) frameBufferHeight / metrics.heightPixels;
 
         renderView = new AndroidFastRenderView(this, frameBuffer);
+        //object created by user created class
+        
         graphics = new AndroidGraphics(getAssets(), frameBuffer);
+        //object created by user created class
         fileIO = new AndroidFileIO(this);
+        //object created by user created class
         audio = new AndroidAudio(this);
+        //object created by user created class
         input = new AndroidInput(this, renderView, scaleX, scaleY);
+        //object created by user created class
         screen = getInitScreen();
+        //object created by user created class
+        //getInitScreen() has no code?
         setContentView(renderView);
+        //Activity class takes care of creating a window for you in which you can place your UI
+        //with setContentView(View)
+        
         
         //PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         //wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "MyGame");
@@ -92,7 +109,7 @@ public abstract class AndroidGame extends Activity implements Game {
     }
 
     @Override
-    public void onPause() {
+    public void onPause() {//
         super.onPause();
         wakeLock.release();
         renderView.pause();

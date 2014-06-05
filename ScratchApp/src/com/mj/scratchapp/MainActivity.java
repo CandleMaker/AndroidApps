@@ -4,9 +4,14 @@ import android.os.*;
 import android.app.*;
 import android.view.*;
 import android.widget.*;
+import android.view.View.*;
+
+import com.mj.scratchapp.*;
 
 public class MainActivity extends Activity {
-
+final int a = 1;
+final int b = 2;
+String c = "msg msg";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -15,6 +20,15 @@ public class MainActivity extends Activity {
 		
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
+		Button b = (Button)findViewById(R.id.button);
+		b.setOnClickListener(new OnClickListener(){
+			public void onClick(View p1){
+				
+				Toast.makeText(getApplicationContext(),c , Toast.LENGTH_LONG).show();
+				//int is not allowed in toast? crashes
+			}
+		});
 	}
 
 	@Override

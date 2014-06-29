@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">ProblemSolver</string>
+	<string name="solve">Solve</string>
+	<string name="edit_message">Enter problem here...</string>
+	<string name="solution">Solution</string>
+
+</resources>
